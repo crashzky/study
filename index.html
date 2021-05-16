@@ -12,128 +12,65 @@
 
 <body>
     <div class="container-fluid">
-        <h1>Привет!</h1>
-        <p class='display-1'>Новый заголовок</p>
-        <a href="#">Ссылка</a>
-        <div class="blockquote">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-        </div>
-        <div class="blockquote-footer">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, ab tempora. Voluptatibus vero
-            repellendus natus in, aliquam ipsum debitis corporis aut sint vitae dicta, tempora enim quis non dolor a.
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 bg-primary mx-1">1</div>
-            <div class="col-lg-3 col-md-6 bg-danger mx-1">2</div>
-            <div class="col-lg-3 col-md-6 bg-info mx-1">3</div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <strong>Описание</strong>
-            </div>
-            <div class="col">
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel assumenda doloremque ipsum iusto
-                    accusamus, quasi ullam eveniet at quaerat, nostrum iste quas? Ut eligendi placeat fuga veniam
-                    incidunt quas repudiandae!
-                </p>
-            </div>
-        </div>
-        <div class="input-group">
-            <span class="input-group-text">@</span>
-            <input type="text" class="form-control" placeholder="Имя пользователя">
-        </div>
-        <div class="input-group mt-3">
-            <input type="text" class="form-control" placeholder="Имя пользователя получателя">
-            <span class="input-group-text">@ example.com</span>
-        </div>
-        <label for="#" class="form-control-label mt-3">Ваш великий URL</label>
-        <div class="input-group mt-3">
-            <span class="input-group-text">https://example.com/users/</span>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group mt-3">
-            <span class="input-group-text">$</span>
-            <input type="text" class="form-control">
-            <span class="input-group-text">.00</span>
-        </div>
-        <div class="input-group mt-3">
-            <input type="text" class="form-control" placeholder="Имя пользователя">
-            <span class="input-group-text">@</span>
-            <input type="text" class="form-control" placeholder="Сервер">
-        </div>
-        <div class="input-group mt-3">
-            <span class="input-group-text">С текстовым полем</span>
-            <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-        </div>
-        <div class="form-floating mt-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-        </div>
-
-        <form class="mt-5">
-            <div class="row">
-                <div class="col">
-                    <label for="">Ваша почта</label>
-                    <input type="email" class="form-control">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Accordion Item #1
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                 </div>
-                <div class="col">
-                    <label for="">Ваш пароль</label>
-                    <input type="password" class="form-control">
-                </div>
+              </div>
             </div>
-            <div class="mt-4">
-                <label for="">Адрес</label>
-                <input type="text" class="form-control" placeholder="1234 Main St">
-            </div>
-            <div class="mt-4">
-                <label for="">Адрес 2</label>
-                <input type="text" class="form-control is-valid" placeholder="Квартира, студия или этаж">
-                <div class="valid-feedback">
-                    Выглядит круто!
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Accordion Item #2
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                 </div>
+              </div>
             </div>
-            <div class="mt-4 row">
-                <div class="col-5">
-                    <label for="">Город</label>
-                    <input type="text" class="form-control is-invalid">
-                    <div class="invalid-feedback">
-                        Кажется вы ошиблись
-                    </div>
-                    <div class="valid-feedback">
-                        Выглядит круто!
-                    </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Accordion Item #3
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                 </div>
-                <div class="col-4">
-                    <label for="">Состояние</label>
-                    <select name="" id="" class="form-select">
-                        <option value="">...</option>
-                    </select>
-                </div>
-                <div class="col-3">
-                    <label for="">Индекс</label>
-                    <input type="number" class="form-control">
-                </div>
+              </div>
             </div>
-            <div class="form-switch mt-3">
-                <input type="checkbox" class="form-check-input">
-                <label for="" class="form-check-label">Прочти меня</label>
-            </div>
-        </form>
+          </div>
+          <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <p class="display-3">
+              Новая пицца! <span class="badge bg-danger">1</span>
+          </p>
+          <div class="btn-group">
+              <button class="btn btn-outline-danger">
+                Опасность
+              </button>
+              <button class="btn btn-outline-warning">
+                Предупреждение
+              </button>
+              <button class="btn btn-outline-success">
+                Успех
+              </button>
+              <select name="" id="" class="form-select btn-outline-info">
+                  <option value="">...</option>
+              </select>
+          </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
