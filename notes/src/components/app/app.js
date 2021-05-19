@@ -7,10 +7,9 @@ import {Provider} from 'react-redux';
 import Sidebar from '../sidebar';
 import List from '../list';
 
-const store = createStore(reducer);
 const App = () => {
+    const store = createStore(reducer);
     
-
     const Wrapper = Styled.div`
         width: 100%;
         height: 100vh;

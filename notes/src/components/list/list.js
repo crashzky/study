@@ -7,10 +7,19 @@ import PropTypes from 'prop-types';
 
 import Write from '../../assets/svg/write.svg';
 
-const List = ({notes = []}) => {
+const List = ({notes, openPage}) => {
     const Div = Styled.div`
         margin-left: 1px;
     `;
+
+    function switchReturn() {
+        switch(openPage) {
+            case 0:
+                return notes.length != 0 ? notes.map((el, i) => <NoteCard key={i} title={el.title} text={el.text}/>) : null;
+            case 1:
+                return null;
+        }
+    }
 
     return (
         <div className='border-end'>
@@ -22,16 +31,18 @@ const List = ({notes = []}) => {
                     <img src={Write} alt='write logo'/>
                 </Button>
             </Div>
-            {notes.map((el, i) => <NoteCard key={i} title={el.title} text={el.text}/>)}
+            {switchReturn()}
         </div>
     );
 };
 
 List.propTypes = {
-    notes: PropTypes.arrayOf(PropTypes.object)
+    notes: PropTypes.arrayOf(PropTypes.object),
+    openPage: PropTypes.oneOf([0, 1])
 };
 
 const mapStateToProps = state => ({
-    notes: state.notes
+    notes: state.notes,
+    openPage: state.openPage
 });
 export default connect(mapStateToProps)(List);

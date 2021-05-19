@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Styled from 'styled-components';
 import Button from '../button';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {openNotes, openArchive} from '../../actions/action';
 
 import Cloud from '../../assets/svg/cloud.svg';
 import Settings from '../../assets/svg/settings.svg';
@@ -10,7 +13,9 @@ import Trash from '../../assets/svg/trash.svg';
 
 import './style.css';
 
-const Sidebar = () => {
+const Sidebar = ({openPage, openNotes, openArchive}) => {
+    const [open, setOpen] = useState(openPage);
+
     const SideBar = Styled.div`
         height: 100%;
         width: 100%;
@@ -39,6 +44,14 @@ const Sidebar = () => {
         color: #FFFFFF;
     `;
 
+    const liClasses = 'list-group-item m-0 p-1 border-0 btn';
+
+    function checkOpacity(now) {
+        if(now != open) {
+            return 'img-opacity';
+        }
+    }
+    
     return (
         <SideBar>
             <div className='d-flex flex-row-reverse mt-3 pe-2 pb-4'>
@@ -50,22 +63,43 @@ const Sidebar = () => {
                 </Button>
             </div>
             <ul className='list-group'>
-                <Li className='list-group-item m-0 p-1 border-0 btn li-active'>
-                    <div className='row align-items-center py-1 ps-2'>
-                        <ImgTiny src={Arrow} alt='Arrow svg' className='col-auto'/>
-                        <Img src={Note} alt='Note svg' className='col-auto'/>
-                        <P className='col-auto'>Notes</P>
-                    </div>
-                </Li>
-                <Li className='list-group-item border-0 ps-4 btn'>
-                    <div className='row align-items-center py-1 ms-2'>
-                        <Img src={Trash} alt='Note svg' className='col-auto'/>
-                        <P className='col-auto'>Archive</P>
-                    </div>
-                </Li>
+                <Button onClick={() => {
+                    openNotes();
+                    setOpen(0);
+                }}>
+                    <Li className={open === 0 ? liClasses + ' li-active' : liClasses}>
+                        <div className='row align-items-center py-1 ps-2'>
+                            <ImgTiny src={Arrow} alt='Arrow svg' className={'col-auto ' + checkOpacity(0)}/>
+                            <Img src={Note} alt='Note svg' className='col-auto'/>
+                            <P className='col-auto'>Notes</P>
+                        </div>
+                    </Li>
+                </Button>
+                <Button onClick={() => {
+                    openArchive();
+                    setOpen(1);
+                }}>
+                    <Li className={open === 1 ? liClasses + ' li-active' : liClasses}>
+                        <div className='row align-items-center py-1 ps-2'>
+                            <ImgTiny src={Arrow} alt='Arrow svg' className={'col-auto ' + checkOpacity(1)}/>
+                            <Img src={Trash} alt='Note svg' className='col-auto'/>
+                            <P className='col-auto'>Archive</P>
+                        </div>
+                    </Li>
+                </Button>
             </ul>
         </SideBar>
     );
 };
 
-export default Sidebar;
+Sidebar.propTypes = {
+    openPage: PropTypes.oneOf([0, 1]),
+    openNotes: PropTypes.func,
+    openArchive: PropTypes.func
+};
+
+const mapStateToProps = (state) => ({
+    openPage: state ? state.openPage : null
+});
+
+export default connect(mapStateToProps, {openNotes, openArchive})(Sidebar);

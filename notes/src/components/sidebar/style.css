@@ -1,3 +1,7 @@
 .li-active {
     background: #363B3E !important;
 }
+
+.img-opacity {
+    opacity: 0;
+}
