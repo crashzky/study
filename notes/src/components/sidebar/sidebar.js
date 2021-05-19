@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 import Button from '../button';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {openNotes, openArchive} from '../../actions/action';
+import {openNotes, openArchive, setOpenNote} from '../../actions/action';
 
 import Cloud from '../../assets/svg/cloud.svg';
 import Settings from '../../assets/svg/settings.svg';
@@ -13,7 +13,7 @@ import Trash from '../../assets/svg/trash.svg';
 
 import './style.css';
 
-const Sidebar = ({openPage, openNotes, openArchive}) => {
+const Sidebar = ({openPage, openNotes, openArchive, setOpenNote}) => {
     const [open, setOpen] = useState(openPage);
 
     const SideBar = Styled.div`
@@ -77,6 +77,7 @@ const Sidebar = ({openPage, openNotes, openArchive}) => {
                 </Button>
                 <Button onClick={() => {
                     openArchive();
+                    setOpenNote(null);
                     setOpen(1);
                 }}>
                     <Li className={open === 1 ? liClasses + ' li-active' : liClasses}>
@@ -95,11 +96,12 @@ const Sidebar = ({openPage, openNotes, openArchive}) => {
 Sidebar.propTypes = {
     openPage: PropTypes.oneOf([0, 1]),
     openNotes: PropTypes.func,
-    openArchive: PropTypes.func
+    openArchive: PropTypes.func,
+    setOpenNote: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
     openPage: state ? state.openPage : null
 });
 
-export default connect(mapStateToProps, {openNotes, openArchive})(Sidebar);
+export default connect(mapStateToProps, {openNotes, openArchive, setOpenNote})(Sidebar);

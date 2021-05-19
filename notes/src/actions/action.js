@@ -6,4 +6,6 @@ const remove = (id) => ({type: 'REMOVE', payload: id});
 const openNotes = () => ({type: 'OPEN_NOTES'});
 const openArchive = () => ({type: 'OPEN_ARCHIVE'});
 
-export {setTitle, setText, add, remove, openNotes, openArchive};
+const setOpenNote = (id) => ({type: 'SET_OPEN', payload: id});
+
+export {setTitle, setText, add, remove, openNotes, openArchive, setOpenNote};

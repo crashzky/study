@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 
 import Sidebar from '../sidebar';
 import List from '../list';
+import Detail from '../detail';
 
 const App = () => {
     const store = createStore(reducer);
@@ -22,6 +23,7 @@ const App = () => {
             <Wrapper>
                 <Sidebar/>
                 <List/>
+                <Detail/>
             </Wrapper>
         </Provider>
     );
