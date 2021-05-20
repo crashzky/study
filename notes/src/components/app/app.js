@@ -8,6 +8,8 @@ import Sidebar from '../sidebar';
 import List from '../list';
 import Detail from '../detail';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const App = () => {
     const store = createStore(reducer);
     

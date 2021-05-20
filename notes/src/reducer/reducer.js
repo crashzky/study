@@ -3,7 +3,9 @@ const initialState = {
     notes: [
         {
             title: 'My first note',
-            text: 'Woooh! It is my first note!'
+            text: 'Woooh! It is my first note!',
+            creatingDate: new Date(Date.now()),
+            modificationDate: new Date(Date.now())
         }
     ],
     openPage: 0,
@@ -26,11 +28,20 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 notes: delta1
             };
+        case 'SET_MODIFICATION_DATE':
+            let delta4 = Array.from(state.notes);
+            delta4[action.payload].modificationDate = new Date(Date.now());
+            return {
+                ...state,
+                notes: delta4
+            };
         case 'ADD':
             let delta2 = Array.from(state.notes);
             delta2.push({
                 title: '',
-                text: ''
+                text: '',
+                creatingDate: new Date(Date.now()),
+                modificationDate: new Date(Date.now())
             });
             return {
                 ...state,
