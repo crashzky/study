@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styled from '@emotion/styled'
+import {css} from '@emotion/css';
 
 export default function Main() {
     const Background = styled.div`
@@ -42,7 +43,7 @@ export default function Main() {
     `;
 
     const SecondLine = styled.div`
-        margin-top: 40px;
+        margin-top: 50px;
     `;
 
     const Span = styled.span`
@@ -54,6 +55,23 @@ export default function Main() {
 
     const Space = styled.span`
         margin: 0 10px;
+    `;
+
+    const ThirdLine = styled.div`
+        margin-top: 40px;
+    `;
+
+    const LabelThird = styled.div`
+        color: white;
+        opacity: 0.7;
+        font-size: 18px;
+    `;
+
+    const BottomText = styled.label`
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
     `;
 
     return (
@@ -79,7 +97,9 @@ export default function Main() {
                                                 alt='Visa img'/>
                                           </div>
                                           <SecondLine>
-                                              <label className='w-100'>
+                                              <label className={css`
+                                                    cursor: pointer;
+                                              `}>
                                                   <Span>#</Span>
                                                   <Span>#</Span>
                                                   <Span>#</Span>
@@ -107,12 +127,26 @@ export default function Main() {
                                                   <Span>#</Span>
                                               </label>
                                           </SecondLine>
+                                          <ThirdLine className='w-100 d-flex justify-content-between'>
+                                                <LabelThird>Card Holder</LabelThird>
+                                                <LabelThird>Expires</LabelThird>
+                                          </ThirdLine>
+                                          <div className='d-flex justify-content-between'>
+                                                <BottomText>FULL NAME</BottomText>
+                                                <div className='row'>
+                                                    <BottomText className='col p-0'>MM</BottomText>
+                                                    <BottomText className='col p-0'>/</BottomText>
+                                                    <BottomText className='col ps-0'>YY</BottomText>
+                                                </div>
+                                          </div>
                                       </ContentContainer>
                                       <ImgContainer className='position-absolute'>
                                           <Image src='/bg.jpeg'
                                             width={470}
                                             height={270}
-                                            className='rounded'
+                                            className={css`
+                                                border-radius: 20px;
+                                            `}
                                             alt='Card img'/>
                                       </ImgContainer>
                                   </div>
