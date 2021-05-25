@@ -9,7 +9,7 @@ export default function Main() {
     const frontRef = useRef();
     const backRef = useRef();
 
-    //#region front
+    //#region main
     const Background = styled.div`
         background: #ddeefc;
         width: 100vw;
@@ -27,7 +27,9 @@ export default function Main() {
         border-radius: 10px;
         padding-top: 150px;
     `;
-
+    //#endregion
+    
+    //#region front
     const CardRow = styled.div`
         transition: all 1s;
         transform: perspective(2000px) rotateY(0);
@@ -86,6 +88,7 @@ export default function Main() {
     //#endregion
 
     //#region back
+    
     const SideLine = styled.div`
         margin-top: 30px;
         height: 50px;
@@ -152,7 +155,8 @@ export default function Main() {
                                           <SecondLine>
                                               <label className={css`
                                                     cursor: pointer;
-                                              `}>
+                                              `}
+                                              htmlFor='input-number'>
                                                   <Span>#</Span>
                                                   <Span>#</Span>
                                                   <Span>#</Span>
@@ -185,12 +189,12 @@ export default function Main() {
                                                 <LabelThird>Expires</LabelThird>
                                           </ThirdLine>
                                           <div className='d-flex justify-content-between'>
-                                                <BottomText>FULL NAME</BottomText>
-                                                <div className='row'>
-                                                    <BottomText className='col p-0'>MM</BottomText>
+                                                <BottomText htmlFor='input-holder'>FULL NAME</BottomText>
+                                                <label className='row'>
+                                                    <BottomText htmlFor='select-month' className='col p-0'>MM</BottomText>
                                                     <BottomText className='col p-0'>/</BottomText>
-                                                    <BottomText className='col ps-0'>YY</BottomText>
-                                                </div>
+                                                    <BottomText htmlFor='select-year' className='col ps-0'>YY</BottomText>
+                                                </label>
                                           </div>
                                       </ContentContainer>
                                       <ImgContainer className='position-absolute'>
@@ -238,9 +242,85 @@ export default function Main() {
                                   </div>
                               </Card>
                           </CardRow>
-                          <CardBackGround className='bg-white position-absolute bottom-0'>
-                                <button className='btn btn-outline-primary me-5' onClick={rotateToFront}>To Front</button>
-                                <button className='btn btn-outline-primary' onClick={rotateToBack}>To Back</button>
+                          <CardBackGround className='bg-white position-absolute bottom-0 px-4'>
+                                <label className='form-label' htmlFor='input-number'>Card Number</label>
+                                <input className='form-control mb-3'
+                                    id='input-number'
+                                    style={{
+                                        height: 48
+                                    }}
+                                    type='number'
+                                    inputMode='numeric'
+                                    pattern='[0-9\s]{12}'
+                                    autoComplete="cc-number"
+                                    maxLength="12" />
+
+                                <label className='form-label' htmlFor='input-holder'>Card Holders</label>
+                                <input className='form-control mb-3'
+                                    id='input-holder'
+                                    style={{
+                                        height: 48
+                                    }}
+                                    type='text'/>
+                                <div className='d-flex justify-content-between'>
+                                    <label className='form-label' for='select-month'>Expiration Date</label>
+                                    <label className='form-label' for='input-cvv'>CVV</label>
+                                </div>
+                                <div className='row px-2'>
+                                    <select defaultValue=''
+                                        id='select-month'
+                                        className='col form-select me-3'
+                                        style={{
+                                            height: 48
+                                        }}>
+                                        <option value="" disabled="disabled">Month</option>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                        <option value='9'>9</option>
+                                        <option value='10'>10</option>
+                                        <option value='11'>11</option>
+                                        <option value='12'>12</option>
+                                    </select>
+                                    <select defaultValue=''
+                                        id='select-year'
+                                        className='col form-select me-3'
+                                        style={{
+                                            height: 48
+                                        }}>
+                                        <option value="" disabled="disabled">Year</option>
+                                        {(() => {
+                                            let render = [];
+                                            const now = new Date(Date.now()).getFullYear();
+                                            for(let i = 0; i < 12; i++) {
+                                                
+                                                render.push(now + i);
+                                            }
+                                            return render.map((el, i) => <option key={i} value={el}>{el}</option>);
+                                        })()}
+                                    </select>
+                                    <input className='col form-control'
+                                    onClick={rotateToBack}
+                                    onBlur={rotateToFront}
+                                    style={{
+                                        height: 48
+                                    }}
+                                    id='input-cvv'
+                                    type='number'
+                                    inputMode='numeric'
+                                    pattern='[0-9\s]{12}'
+                                    autoComplete="cc-number"
+                                    maxLength="4" />
+                                </div>
+                                <button className='btn btn-primary w-100 fs-5 mt-5'
+                                    style={{
+                                        height: 48
+                                    }}>Submit</button>
                           </CardBackGround>
                       </CardForm>
                   </Background>
