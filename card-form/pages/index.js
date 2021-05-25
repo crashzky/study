@@ -1,13 +1,42 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import styled from '@emotion/styled'
 import {css} from '@emotion/css';
-import {useRef} from 'react';
+import {useRef, useState, useEffect} from 'react';
 
 export default function Main() {
     const rowRef = useRef();
     const frontRef = useRef();
     const backRef = useRef();
+
+    const inputNumberRef = useRef();
+    const inputSpansRef = useRef();
+
+    const [editedField, setEditedField] = useState();
+    const [cardNumber, setCardNumber] = useState('');
+
+    useEffect(() => {
+        switch(editedField) {
+            case 0:
+                inputNumberRef.current.focus();
+                let span = inputSpansRef.current.children[cardNumber.length - 1];
+
+                if(cardNumber.length - 1 >= 4) { //for second four
+                    span = inputSpansRef.current.children[cardNumber.length];
+                }
+                if(cardNumber.length - 1 >= 8) { //for thirt four
+                    span = inputSpansRef.current.children[cardNumber.length + 1];
+                }
+                if(cardNumber.length - 1 >= 12) { //for last four
+                    span = inputSpansRef.current.children[cardNumber.length + 2];
+                }
+                
+                if(span) {
+                    span.style = 'transform: translateY(-15px);';
+                    setTimeout(() => span.style = {}, 150);
+                }
+                break;
+        }
+    }, [cardNumber]);
 
     //#region main
     const Background = styled.div`
@@ -62,6 +91,8 @@ export default function Main() {
         line-height: 1;
         color: white;
         font-size: 27px;
+        display: block;
+        transition: all .2s ease-in-out;
     `;
 
     const Space = styled.span`
@@ -127,6 +158,16 @@ export default function Main() {
         }, 240);
     }
 
+    function getCardNum(i) {
+        if(cardNumber.length <= i) 
+            return '#';
+        else if (i >= 4 && i <= 11) 
+            return '*';
+        else 
+            return cardNumber.substr(i, 1);
+        
+    }
+
     return (
               <>
                   <Head>
@@ -143,11 +184,11 @@ export default function Main() {
                                   <div className='position-relative'>
                                       <ContentContainer className='position-absolute'>
                                           <div className='d-flex justify-content-between'> 
-                                              <Image src='/chip.png'
+                                              <img src='/chip.png'
                                                   width={60}
                                                   height={48}
                                                   alt='Chip img'/>
-                                              <Image src='/visa.png'
+                                              <img src='/visa.png'
                                                 width={84}
                                                 height={45}
                                                 alt='Visa img'/>
@@ -155,33 +196,27 @@ export default function Main() {
                                           <SecondLine>
                                               <label className={css`
                                                     cursor: pointer;
+                                                    display: flex;
                                               `}
+                                              ref={inputSpansRef}
                                               htmlFor='input-number'>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
+                                                  {(() => {
+                                                      let result = [];
 
-                                                  <Space> </Space>
-
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-
-                                                  <Space> </Space>
-
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-
-                                                  <Space> </Space>
-
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
-                                                  <Span>#</Span>
+                                                      for(let i = 1; i <= 16; i++) {
+                                                          if(i%4 === 0 && i !== 16) {
+                                                            result.push(
+                                                                  <>
+                                                                    <Span>{getCardNum(i - 1)}</Span>
+                                                                    <Space/>
+                                                                  </>
+                                                            );
+                                                          } else {
+                                                              result.push(<Span>{getCardNum(i - 1)}</Span>);
+                                                          }
+                                                      }
+                                                      return result.map(i => i);
+                                                  })()}
                                               </label>
                                           </SecondLine>
                                           <ThirdLine className='w-100 d-flex justify-content-between'>
@@ -198,7 +233,7 @@ export default function Main() {
                                           </div>
                                       </ContentContainer>
                                       <ImgContainer className='position-absolute'>
-                                          <Image src='/bg.jpeg'
+                                          <img src='/bg.jpeg'
                                             width={470}
                                             height={270}
                                             className={css`
@@ -220,7 +255,7 @@ export default function Main() {
                                             <CvvTitle className='text-end mt-3 mb-1'>CVV</CvvTitle>
                                             <CvvLine className='rounded mx-3'/>
                                             <div className='ms-3'>
-                                                <Image className={css`
+                                                <img className={css`
                                                     transform: rotateY(180deg);
                                                     opacity: .8;
                                                 `}
@@ -231,7 +266,7 @@ export default function Main() {
                                             </div>
                                       </ContentContainer>
                                       <ImgContainer className='position-absolute'>
-                                          <Image src='/bg.jpeg'
+                                          <img src='/bg.jpeg'
                                             width={470}
                                             height={270}
                                             className={css`
@@ -251,9 +286,18 @@ export default function Main() {
                                     }}
                                     type='number'
                                     inputMode='numeric'
-                                    pattern='[0-9\s]{12}'
-                                    autoComplete="cc-number"
-                                    maxLength="12" />
+                                    pattern='[0-9\s]{16}'
+                                    maxLength={16}
+                                    ref={inputNumberRef}
+                                    defaultValue={cardNumber}
+                                    onChange={e => {
+                                        setEditedField(0);
+                                        if(e.target.value.length <= 16) {
+                                            setCardNumber(e.target.value);
+                                        } else {
+                                            e.target.value = e.target.value.substr(0, 16);
+                                        }
+                                    }}/>
 
                                 <label className='form-label' htmlFor='input-holder'>Card Holders</label>
                                 <input className='form-control mb-3'
@@ -263,8 +307,8 @@ export default function Main() {
                                     }}
                                     type='text'/>
                                 <div className='d-flex justify-content-between'>
-                                    <label className='form-label' for='select-month'>Expiration Date</label>
-                                    <label className='form-label' for='input-cvv'>CVV</label>
+                                    <label className='form-label' htmlFor='select-month'>Expiration Date</label>
+                                    <label className='form-label' htmlFor='input-cvv'>CVV</label>
                                 </div>
                                 <div className='row px-2'>
                                     <select defaultValue=''
