@@ -2,8 +2,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styled from '@emotion/styled'
 import {css} from '@emotion/css';
+import {useRef} from 'react';
 
 export default function Main() {
+    const rowRef = useRef();
+    const frontRef = useRef();
+    const backRef = useRef();
+
+    //#region front
     const Background = styled.div`
         background: #ddeefc;
         width: 100vw;
@@ -19,9 +25,12 @@ export default function Main() {
         width: 100%;
         height: 557px;
         border-radius: 10px;
+        padding-top: 150px;
     `;
 
     const CardRow = styled.div`
+        transition: all 1s;
+        transform: perspective(2000px) rotateY(0);
         width: 100%;
         height: 270px;
         z-index: 2;
@@ -74,6 +83,47 @@ export default function Main() {
         font-weight: 500;
     `;
 
+    //#endregion
+
+    //#region back
+    const SideLine = styled.div`
+        margin-top: 30px;
+        height: 50px;
+        background: rgba(0, 0, 19, .8);
+    `
+
+    const CvvTitle = styled.div`
+        padding-right: 15px;
+        font-size: 17px;
+        font-weight: 500;
+        transform: rotateY(180deg);
+        color: white;
+    `
+
+    const CvvLine = styled.div`
+        background: white;
+        height: 45px;
+        margin-bottom: 30px;
+    `;
+    
+    //#endregion
+
+    function rotateToBack() {
+        rowRef.current.style = 'transform: perspective(2000px) rotateY(180deg);';
+        setTimeout(() => {
+            frontRef.current.style = 'z-index: 1;';
+            backRef.current.style = 'z-index: 2;';
+        }, 240);
+    }
+
+    function rotateToFront() {
+        rowRef.current.style = 'transform: perspective(2000px) rotateY(0deg);';
+        setTimeout(() => {
+            frontRef.current.style = 'z-index: 2;';
+            backRef.current.style = 'z-index: 1;';
+        }, 240);
+    }
+
     return (
               <>
                   <Head>
@@ -82,8 +132,11 @@ export default function Main() {
                   </Head>
                   <Background className='d-flex justify-content-center align-items-center'>
                       <CardForm className='position-relative'>
-                          <CardRow className='position-absolute d-flex justify-content-center'>
-                              <Card>
+                          <CardRow ref={rowRef} className='position-relative d-flex justify-content-center'>
+                              {/*card front*/}
+                              <Card ref={frontRef} style={{
+                                  zIndex: 2
+                              }} className='position-absolute'>
                                   <div className='position-relative'>
                                       <ContentContainer className='position-absolute'>
                                           <div className='d-flex justify-content-between'> 
@@ -151,9 +204,43 @@ export default function Main() {
                                       </ImgContainer>
                                   </div>
                               </Card>
+                              {/*card back*/}
+                              <Card ref={backRef} style={{
+                                  zIndex: 1
+                              }} className='position-absolute'>
+                                  <div className='position-relative'>
+                                      <ContentContainer style={{
+                                          padding: 0
+                                      }} className='position-absolute'>
+                                            <SideLine/>
+                                            <CvvTitle className='text-end mt-3 mb-1'>CVV</CvvTitle>
+                                            <CvvLine className='rounded mx-3'/>
+                                            <div className='ms-3'>
+                                                <Image className={css`
+                                                    transform: rotateY(180deg);
+                                                    opacity: .8;
+                                                `}
+                                                    src='/visa.png'
+                                                    width={84}
+                                                    height={45}
+                                                    alt='Visa logo'/>
+                                            </div>
+                                      </ContentContainer>
+                                      <ImgContainer className='position-absolute'>
+                                          <Image src='/bg.jpeg'
+                                            width={470}
+                                            height={270}
+                                            className={css`
+                                                border-radius: 20px;
+                                            `}
+                                            alt='Card img'/>
+                                      </ImgContainer>
+                                  </div>
+                              </Card>
                           </CardRow>
                           <CardBackGround className='bg-white position-absolute bottom-0'>
-
+                                <button className='btn btn-outline-primary me-5' onClick={rotateToFront}>To Front</button>
+                                <button className='btn btn-outline-primary' onClick={rotateToBack}>To Back</button>
                           </CardBackGround>
                       </CardForm>
                   </Background>
