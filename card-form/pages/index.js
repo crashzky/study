@@ -22,12 +22,16 @@ export default function Main() {
     const [cardYear, setCardYear] = useState('');
     const [cardCvv, setCardCvv] = useState('');
 
+    const [payLogo, setPayLogo] = useState('/visa.png');
+    const payLogoRef = useRef();
+
     useEffect(() => {
         switch(editedField) {
             case 0:
                 inputNumberRef.current.focus();
                 let span = inputSpansRef.current.children[cardNumber.length - 1];
 
+                //select animation target
                 if(cardNumber.length - 1 >= 4) { //for second four
                     span = inputSpansRef.current.children[cardNumber.length];
                 }
@@ -38,11 +42,13 @@ export default function Main() {
                     span = inputSpansRef.current.children[cardNumber.length + 2];
                 }
                 
+                //add animation
                 if(span) {
                     span.style = 'transform: translateY(-15px);';
                     setTimeout(() => span.style = {}, 150);
                 }
 
+                //add spaces to input
                 inputNumberRef.current.value = inputNumberRef.current.value.replaceAll(' ', '');
                 if(inputNumberRef.current.value.length > 12) {
                     inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8, 12) + ' ' + inputNumberRef.current.value.substring(12);
@@ -51,6 +57,26 @@ export default function Main() {
                 } else if (inputNumberRef.current.value.length > 4) {
                     inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4);
                 }
+
+                //switch pay logo
+                if(inputNumberRef.current.value.startsWith('2')) {
+                    setPayLogo('/mir.png');
+                } else if(inputNumberRef.current.value.startsWith('30') || inputNumberRef.current.value.startsWith('36') || inputNumberRef.current.value.startsWith('38')) {
+                    setPayLogo('/dinner_club.png');
+                } else if(inputNumberRef.current.value.startsWith('31') || inputNumberRef.current.value.startsWith('35')) {
+                    setPayLogo('/jcb.png');
+                } else if(inputNumberRef.current.value.startsWith('34') || inputNumberRef.current.value.startsWith('37')) {
+                    setPayLogo('/american_express.png');
+                } else if(inputNumberRef.current.value.startsWith('5') || inputNumberRef.current.value.startsWith('63') || inputNumberRef.current.value.startsWith('67')) {
+                    setPayLogo('/maestro_mastercard.png');
+                } else if(inputNumberRef.current.value.startsWith('60')) {
+                    setPayLogo('/discover.png');
+                } else if(inputNumberRef.current.value.startsWith('62')) {
+                    setPayLogo('/union_pay.png');
+                } else {
+                    setPayLogo('/visa.png');
+                }
+
                 break;
             case 1:
                 inputHolderRef.current.focus();
@@ -61,6 +87,14 @@ export default function Main() {
                 break;
         }
     }, [cardNumber, cardHolder, cardCvv]);
+
+    useEffect(() => {
+        //animation
+        payLogoRef.current.style = 'transform: translateY(-15px);';
+        setTimeout(() => payLogoRef.current.style = '', 200);
+
+        inputNumberRef.current.focus()
+    }, [payLogo]);
 
     //#region main
     const Background = styled.div`
@@ -221,10 +255,14 @@ export default function Main() {
                                                   width={60}
                                                   height={48}
                                                   alt='Chip img'/>
-                                              <img src='/visa.png'
+                                              <img src={payLogo}
                                                 width={84}
                                                 height={45}
-                                                alt='Visa img'/>
+                                                alt='Visa img'
+                                                ref={payLogoRef}
+                                                className={css`
+                                                    transition: all .2s ease-in-out;
+                                                `}/>
                                           </div>
                                           <SecondLine>
                                               <label className={css`
@@ -292,7 +330,7 @@ export default function Main() {
                                                     transform: rotateY(180deg);
                                                     opacity: .8;
                                                 `}
-                                                    src='/visa.png'
+                                                    src={payLogo}
                                                     width={84}
                                                     height={45}
                                                     alt='Visa logo'/>
