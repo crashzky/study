@@ -11,8 +11,16 @@ export default function Main() {
     const inputNumberRef = useRef();
     const inputSpansRef = useRef();
 
+    const inputHolderRef = useRef();
+
+    const inputCvvRef = useRef();
+
     const [editedField, setEditedField] = useState();
     const [cardNumber, setCardNumber] = useState('');
+    const [cardHolder, setCardHolder] = useState('');
+    const [cardMonth, setCardMonth] = useState('');
+    const [cardYear, setCardYear] = useState('');
+    const [cardCvv, setCardCvv] = useState('');
 
     useEffect(() => {
         switch(editedField) {
@@ -34,9 +42,25 @@ export default function Main() {
                     span.style = 'transform: translateY(-15px);';
                     setTimeout(() => span.style = {}, 150);
                 }
+
+                inputNumberRef.current.value = inputNumberRef.current.value.replaceAll(' ', '');
+                if(inputNumberRef.current.value.length > 12) {
+                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8, 12) + ' ' + inputNumberRef.current.value.substring(12);
+                } else if (inputNumberRef.current.value.length > 8) {
+                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8);
+                } else if (inputNumberRef.current.value.length > 4) {
+                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4);
+                }
+                break;
+            case 1:
+                inputHolderRef.current.focus();
+                break;
+            case 2:
+                fastToBack();
+                inputCvvRef.current.focus();
                 break;
         }
-    }, [cardNumber]);
+    }, [cardNumber, cardHolder, cardCvv]);
 
     //#region main
     const Background = styled.div`
@@ -138,6 +162,7 @@ export default function Main() {
         background: white;
         height: 45px;
         margin-bottom: 30px;
+        transform: rotateY(180deg);
     `;
     
     //#endregion
@@ -148,6 +173,14 @@ export default function Main() {
             frontRef.current.style = 'z-index: 1;';
             backRef.current.style = 'z-index: 2;';
         }, 240);
+    }
+
+    function fastToBack() {
+        rowRef.current.style = 'transition: all 0; transform: perspective(2000px) rotateY(180deg);';
+        frontRef.current.style = 'z-index: 1;';
+        backRef.current.style = 'z-index: 2;';
+
+        rowRef.current.style = 'transform: perspective(2000px) rotateY(180deg);';
     }
 
     function rotateToFront() {
@@ -224,11 +257,11 @@ export default function Main() {
                                                 <LabelThird>Expires</LabelThird>
                                           </ThirdLine>
                                           <div className='d-flex justify-content-between'>
-                                                <BottomText htmlFor='input-holder'>FULL NAME</BottomText>
+                                                <BottomText htmlFor='input-holder'>{cardHolder.length > 0 ? cardHolder : 'FULL NAME'}</BottomText>
                                                 <label className='row'>
-                                                    <BottomText htmlFor='select-month' className='col p-0'>MM</BottomText>
+                                                    <BottomText htmlFor='select-month' className='col p-0'>{cardMonth.length > 0 ? cardMonth : 'MM'}</BottomText>
                                                     <BottomText className='col p-0'>/</BottomText>
-                                                    <BottomText htmlFor='select-year' className='col ps-0'>YY</BottomText>
+                                                    <BottomText htmlFor='select-year' className='col ps-0'>{cardYear.length > 0 ? cardYear : 'YY'}</BottomText>
                                                 </label>
                                           </div>
                                       </ContentContainer>
@@ -253,7 +286,7 @@ export default function Main() {
                                       }} className='position-absolute'>
                                             <SideLine/>
                                             <CvvTitle className='text-end mt-3 mb-1'>CVV</CvvTitle>
-                                            <CvvLine className='rounded mx-3'/>
+                                            <CvvLine className='rounded mx-3 text-end pt-2 pe-3'>{cardCvv.split('').map(() => '*').toString().replaceAll(',', '')}</CvvLine>
                                             <div className='ms-3'>
                                                 <img className={css`
                                                     transform: rotateY(180deg);
@@ -284,18 +317,18 @@ export default function Main() {
                                     style={{
                                         height: 48
                                     }}
-                                    type='number'
+                                    type='text'
                                     inputMode='numeric'
-                                    pattern='[0-9\s]{16}'
-                                    maxLength={16}
+                                    pattern='[0123456789 ]{19}'
+                                    maxLength={19}
                                     ref={inputNumberRef}
                                     defaultValue={cardNumber}
                                     onChange={e => {
                                         setEditedField(0);
-                                        if(e.target.value.length <= 16) {
-                                            setCardNumber(e.target.value);
+                                        if(e.target.value.length <= 19) {
+                                            setCardNumber(e.target.value.replaceAll(' ', ''));
                                         } else {
-                                            e.target.value = e.target.value.substr(0, 16);
+                                            e.target.value = e.target.value.substr(0, 19);
                                         }
                                     }}/>
 
@@ -305,7 +338,13 @@ export default function Main() {
                                     style={{
                                         height: 48
                                     }}
-                                    type='text'/>
+                                    type='text'
+                                    ref={inputHolderRef}
+                                    defaultValue={cardHolder}
+                                    onChange={e => {
+                                        setEditedField(1);
+                                        setCardHolder(e.target.value);
+                                    }}/>
                                 <div className='d-flex justify-content-between'>
                                     <label className='form-label' htmlFor='select-month'>Expiration Date</label>
                                     <label className='form-label' htmlFor='input-cvv'>CVV</label>
@@ -316,17 +355,22 @@ export default function Main() {
                                         className='col form-select me-3'
                                         style={{
                                             height: 48
+                                        }}
+                                        defaultValue={cardMonth}
+                                        onChange={e => {
+                                            setEditedField(3);
+                                            setCardMonth(e.target.value);
                                         }}>
                                         <option value="" disabled="disabled">Month</option>
-                                        <option value='1'>1</option>
-                                        <option value='2'>2</option>
-                                        <option value='3'>3</option>
-                                        <option value='4'>4</option>
-                                        <option value='5'>5</option>
-                                        <option value='6'>6</option>
-                                        <option value='7'>7</option>
-                                        <option value='8'>8</option>
-                                        <option value='9'>9</option>
+                                        <option value='01'>1</option>
+                                        <option value='02'>2</option>
+                                        <option value='03'>3</option>
+                                        <option value='04'>4</option>
+                                        <option value='05'>5</option>
+                                        <option value='06'>6</option>
+                                        <option value='07'>7</option>
+                                        <option value='08'>8</option>
+                                        <option value='09'>9</option>
                                         <option value='10'>10</option>
                                         <option value='11'>11</option>
                                         <option value='12'>12</option>
@@ -336,6 +380,11 @@ export default function Main() {
                                         className='col form-select me-3'
                                         style={{
                                             height: 48
+                                        }}
+                                        defaultValue={cardYear}
+                                        onChange={e => {
+                                            setEditedField(3);
+                                            setCardYear(e.target.value);
                                         }}>
                                         <option value="" disabled="disabled">Year</option>
                                         {(() => {
@@ -345,7 +394,7 @@ export default function Main() {
                                                 
                                                 render.push(now + i);
                                             }
-                                            return render.map((el, i) => <option key={i} value={el}>{el}</option>);
+                                            return render.map((el, i) => <option key={i} value={el.toString().substr(2)}>{el}</option>);
                                         })()}
                                     </select>
                                     <input className='col form-control'
@@ -357,9 +406,20 @@ export default function Main() {
                                     id='input-cvv'
                                     type='number'
                                     inputMode='numeric'
-                                    pattern='[0-9\s]{12}'
+                                    pattern='[0-9\s]{4}'
                                     autoComplete="cc-number"
-                                    maxLength="4" />
+                                    maxLength="4"
+                                    ref={inputCvvRef}
+                                    defaultValue={cardCvv}
+                                    onChange={e => {
+                                        setEditedField(2);
+                                        
+                                        if(e.target.value.length <= 4) {
+                                            setCardCvv(e.target.value);
+                                        } else {
+                                            e.target.value = e.target.value.substr(0, 4);
+                                        }
+                                    }}/>
                                 </div>
                                 <button className='btn btn-primary w-100 fs-5 mt-5'
                                     style={{
