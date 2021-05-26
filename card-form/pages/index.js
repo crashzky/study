@@ -7,11 +7,14 @@ export default function Main() {
     const rowRef = useRef();
     const frontRef = useRef();
     const backRef = useRef();
+    const borderRef = useRef();
 
     const inputNumberRef = useRef();
     const inputSpansRef = useRef();
 
     const inputHolderRef = useRef();
+
+    const inputDateRef = useRef();
 
     const inputCvvRef = useRef();
 
@@ -29,6 +32,8 @@ export default function Main() {
         switch(editedField) {
             case 0:
                 inputNumberRef.current.focus();
+                fastToNum();
+
                 let span = inputSpansRef.current.children[cardNumber.length - 1];
 
                 //select animation target
@@ -80,13 +85,18 @@ export default function Main() {
                 break;
             case 1:
                 inputHolderRef.current.focus();
+                fastToHolder();
                 break;
             case 2:
                 fastToBack();
                 inputCvvRef.current.focus();
                 break;
+            case 3:
+                fastToDate();
+                inputDateRef.current.focus();
+                break;
         }
-    }, [cardNumber, cardHolder, cardCvv]);
+    }, [cardNumber, cardHolder, cardCvv, cardMonth, cardYear]);
 
     useEffect(() => {
         //animation
@@ -174,6 +184,32 @@ export default function Main() {
         font-weight: 500;
     `;
 
+    const CardBorder = styled.div`
+        z-index: 3;
+        border-radius: 5px;
+        left: 0;
+        top: 0;
+        height: 269px;
+        transition: all 0.35s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+        opacity: 0;
+        pointer-events: none;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.65);
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #08142f;
+            height: 100%;
+            border-radius: 5px;
+            filter: blur(25px);
+            opacity: 0.25;
+        }
+    `;
+
     //#endregion
 
     //#region back
@@ -201,6 +237,8 @@ export default function Main() {
     
     //#endregion
 
+
+    //rotate functions
     function rotateToBack() {
         rowRef.current.style = 'transform: perspective(2000px) rotateY(180deg);';
         setTimeout(() => {
@@ -223,6 +261,35 @@ export default function Main() {
             frontRef.current.style = 'z-index: 2;';
             backRef.current.style = 'z-index: 1;';
         }, 240);
+    }
+
+    //moveBorder functions
+    function moveToStart() {
+        borderRef.current.style = '';
+    }
+
+    function moveToNum() {
+        borderRef.current.style = 'height: 47px; width: 340px !important; transform: translateX(15px) translateY(112px); opacity: 1';
+    }
+
+    function fastToNum() {
+        borderRef.current.style = 'transition: all 0s; height: 47px; width: 340px !important; transform: translateX(15px) translateY(112px); opacity: 1';
+    }
+
+    function moveToHolder() {
+        borderRef.current.style = 'height: 60px; width: 350px !important; transform: translateX(15px) translateY(188px); opacity: 1';
+    }
+
+    function fastToHolder() {
+        borderRef.current.style = 'transition: all 0s; height: 60px; width: 350px !important; transform: translateX(15px) translateY(188px); opacity: 1';
+    }
+
+    function moveToDate() {
+        borderRef.current.style = 'height: 60px; width: 80px !important; transform: translateX(380px) translateY(188px); opacity: 1';
+    }
+
+    function fastToDate() {
+        borderRef.current.style = 'transition: all 0s; height: 60px; width: 80px !important; transform: translateX(380px) translateY(188px); opacity: 1';
     }
 
     function getCardNum(i) {
@@ -249,6 +316,7 @@ export default function Main() {
                                   zIndex: 2
                               }} className='position-absolute'>
                                   <div className='position-relative'>
+                                      <CardBorder ref={borderRef} className='position-absolute w-100'/>
                                       <ContentContainer className='position-absolute'>
                                           <div className='d-flex justify-content-between'> 
                                               <img src='/chip.png'
@@ -361,12 +429,17 @@ export default function Main() {
                                     maxLength={19}
                                     ref={inputNumberRef}
                                     defaultValue={cardNumber}
+                                    onClick={moveToNum}
+                                    onBlur={moveToStart}
                                     onChange={e => {
                                         setEditedField(0);
-                                        if(e.target.value.length <= 19) {
+
+                                        if(e.target.value.length == 0) {
+                                            setCardNumber('');
+                                        } else if(e.target.value.length <= 19 && e.target.value.match(/^[0-9]+$/)) {
                                             setCardNumber(e.target.value.replaceAll(' ', ''));
                                         } else {
-                                            e.target.value = e.target.value.substr(0, 19);
+                                            e.target.value = e.target.value.substr(0, e.target.value.length - 1);
                                         }
                                     }}/>
 
@@ -377,11 +450,21 @@ export default function Main() {
                                         height: 48
                                     }}
                                     type='text'
+                                    maxLength={30}
                                     ref={inputHolderRef}
                                     defaultValue={cardHolder}
+                                    onClick={moveToHolder}
+                                    onBlur={moveToStart}
                                     onChange={e => {
                                         setEditedField(1);
-                                        setCardHolder(e.target.value);
+                                        
+                                        if(e.target.value.length == 0) {
+                                            setCardHolder('');
+                                        } else if(e.target.value.match(/^[a-z]+$/)) {
+                                            setCardHolder(e.target.value);
+                                        } else {
+                                            e.target.value = e.target.value.substr(0, e.target.value.length - 1);
+                                        }
                                     }}/>
                                 <div className='d-flex justify-content-between'>
                                     <label className='form-label' htmlFor='select-month'>Expiration Date</label>
@@ -395,6 +478,9 @@ export default function Main() {
                                             height: 48
                                         }}
                                         defaultValue={cardMonth}
+                                        onClick={moveToDate}
+                                        onBlur={moveToStart}
+                                        ref={inputDateRef}
                                         onChange={e => {
                                             setEditedField(3);
                                             setCardMonth(e.target.value);
@@ -420,6 +506,8 @@ export default function Main() {
                                             height: 48
                                         }}
                                         defaultValue={cardYear}
+                                        onClick={moveToDate}
+                                        onBlur={moveToStart}
                                         onChange={e => {
                                             setEditedField(3);
                                             setCardYear(e.target.value);
@@ -436,20 +524,20 @@ export default function Main() {
                                         })()}
                                     </select>
                                     <input className='col form-control'
-                                    onClick={rotateToBack}
-                                    onBlur={rotateToFront}
-                                    style={{
-                                        height: 48
-                                    }}
-                                    id='input-cvv'
-                                    type='number'
-                                    inputMode='numeric'
-                                    pattern='[0-9\s]{4}'
-                                    autoComplete="cc-number"
-                                    maxLength="4"
-                                    ref={inputCvvRef}
-                                    defaultValue={cardCvv}
-                                    onChange={e => {
+                                        onClick={rotateToBack}
+                                        onBlur={rotateToFront}
+                                        style={{
+                                            height: 48
+                                        }}
+                                        id='input-cvv'
+                                        type='number'
+                                        inputMode='numeric'
+                                        pattern='[0-9\s]{4}'
+                                        autoComplete="cc-number"
+                                        maxLength="4"
+                                        ref={inputCvvRef}
+                                        defaultValue={cardCvv}
+                                        onChange={e => {
                                         setEditedField(2);
                                         
                                         if(e.target.value.length <= 4) {
