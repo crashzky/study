@@ -436,7 +436,7 @@ export default function Main() {
 
                                         if(e.target.value.length == 0) {
                                             setCardNumber('');
-                                        } else if(e.target.value.length <= 19 && e.target.value.match(/^[0-9]+$/)) {
+                                        } else if(e.target.value.length <= 19 && e.target.value.match(/^[0-9 ]+$/)) {
                                             setCardNumber(e.target.value.replaceAll(' ', ''));
                                         } else {
                                             e.target.value = e.target.value.substr(0, e.target.value.length - 1);
@@ -460,7 +460,7 @@ export default function Main() {
                                         
                                         if(e.target.value.length == 0) {
                                             setCardHolder('');
-                                        } else if(e.target.value.match(/^[a-z]+$/)) {
+                                        } else if(e.target.value.match(/^[a-z ]+$/)) {
                                             setCardHolder(e.target.value);
                                         } else {
                                             e.target.value = e.target.value.substr(0, e.target.value.length - 1);
