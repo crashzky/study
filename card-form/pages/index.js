@@ -392,7 +392,7 @@ export default function Main() {
                                       }} className='position-absolute'>
                                             <SideLine/>
                                             <CvvTitle className='text-end mt-3 mb-1'>CVV</CvvTitle>
-                                            <CvvLine className='rounded mx-3 text-end pt-2 pe-3'>{cardCvv.split('').map(() => '*').toString().replaceAll(',', '')}</CvvLine>
+                                            <CvvLine className='rounded mx-3 text-end pt-2 pe-3'>{cardCvv.length > 0 ? cardCvv.split('').map(() => '*').reduce((i, all) => all + i) : ''}</CvvLine>
                                             <div className='ms-3'>
                                                 <img className={css`
                                                     transform: rotateY(180deg);
