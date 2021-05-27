@@ -29,6 +29,16 @@ export default function Main() {
     const payLogoRef = useRef();
 
     useEffect(() => {
+        inputNumberRef.current.value = inputNumberRef.current.value.replaceAll(' ', '');
+        
+        if(inputNumberRef.current.value.length > 12) {
+            inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8, 12) + ' ' + inputNumberRef.current.value.substring(12);
+        } else if (inputNumberRef.current.value.length > 8) {
+            inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8);
+        } else if (inputNumberRef.current.value.length > 4) {
+            inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4);
+        }
+
         switch(editedField) {
             case 0:
                 inputNumberRef.current.focus();
@@ -51,16 +61,6 @@ export default function Main() {
                 if(span) {
                     span.style = 'transform: translateY(-15px);';
                     setTimeout(() => span.style = {}, 150);
-                }
-
-                //add spaces to input
-                inputNumberRef.current.value = inputNumberRef.current.value.replaceAll(' ', '');
-                if(inputNumberRef.current.value.length > 12) {
-                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8, 12) + ' ' + inputNumberRef.current.value.substring(12);
-                } else if (inputNumberRef.current.value.length > 8) {
-                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4, 8) + ' ' + inputNumberRef.current.value.substring(8);
-                } else if (inputNumberRef.current.value.length > 4) {
-                    inputNumberRef.current.value = inputNumberRef.current.value.substring(0, 4) + ' ' + inputNumberRef.current.value.substring(4);
                 }
 
                 //switch pay logo
@@ -236,7 +236,6 @@ export default function Main() {
     `;
     
     //#endregion
-
 
     //rotate functions
     function rotateToBack() {
