@@ -2,6 +2,8 @@
 
 A fantastic credit card form with smooth and sweet micro-interactions. Includes number formatting, validation and automatic card type detection
 
+I took the idea by [muhammed/vue-interactive-paycard](https://github.com/muhammed/vue-interactive-paycard)
+
 ![](demo.gif)
 
 ## Usage
