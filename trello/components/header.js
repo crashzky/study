@@ -12,7 +12,7 @@ import Search from '../components/search';
 
 export default function Header() {
     return (
-        <Navbar className='ps-4' expand="md">
+        <Navbar className='ps-4 border-bottom' expand="md">
             <NavbarBrand href="/">
                 <img src='/svg/trello.svg' alt='Logo'/>
             </NavbarBrand>
@@ -27,7 +27,7 @@ export default function Header() {
                             <Col className={css`
                                 padding-top: 2px;
                                 font-style: normal;
-                                font-weight: normal;
+                                font-weight: 500;
                                 font-size: 16px;
                                 line-height: 24px;
                             `}>Boards</Col>
@@ -36,7 +36,7 @@ export default function Header() {
                     <NavItem className='mx-2'>
                         <Separator/>
                     </NavItem>
-                    <NavItem>
+                    <NavItem className='ms-3'>
                         <Search/>
                     </NavItem>
                 </Nav>

@@ -14,14 +14,17 @@ export default function Search() {
         `}>
             <Col md='11'>
                 <input type='text' className={css`
+                    width: 100%;
                     height: 100%;
                     outline: none;
                     border: none;
                     background: transparent;
                 `}/>
             </Col>
-            <Col>
-                <i class="bi bi-search"></i>
+            <Col className={css`
+                padding-top: 1px;
+            `}>
+                <img src='/svg/loupe.svg' alt='Loupe'/>
             </Col>
         </Row>
     );
