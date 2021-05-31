@@ -2,10 +2,14 @@ import {css} from '@emotion/css';
 import Tag from '../components/tag';
 import {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {setCardTitle} from '../actions/action';
 
-export default function Card({edit = false}) {
-    const [isEdit, setIsEdit] = useState(edit);
+const Card = ({id, parent, tags, title, setCardTitle}) => {
+    const [isEdit, setIsEdit] = useState(false);
     const inputRef = useRef();
+
+    const [deltaValue, setDeltaValue] = useState(title);
     
     useEffect(() => {
         if(inputRef.current)
@@ -18,7 +22,8 @@ export default function Card({edit = false}) {
                 ref={inputRef}
                 className={css`
                     width: 100%;
-                    resize: none;
+                    height: ${Math.ceil(deltaValue.length/ 38) * 25}px;
+                    resize: vertical;
                     border: none;
                     outline: none;
                     background: transparent;
@@ -30,8 +35,23 @@ export default function Card({edit = false}) {
                     margin-bottom: 0;
                     padding: 0;
                 `}
-                defaultValue='Old fashioned recipe for preventing allergies and chemical sensitivitiesign'
-               onBlur={() => setIsEdit(false)}/>;
+                defaultValue={deltaValue}
+                onChange={e => {
+                    if(e.target.value !== '')
+                        setDeltaValue(e.target.value);
+                }}
+                onKeyUp={e => {
+                    if(e.code === 'Enter') {
+                        setIsEdit(false);
+                        if(e.target.value !== '')
+                            setCardTitle(parent, id, e.target.value);
+                    }
+                }}
+                onBlur={e => {
+                    setIsEdit(false);
+                    if(e.target.value !== '')
+                        setCardTitle(parent, id, e.target.value);
+                }}/>;
         } else {
             return <p className={css`
                 font-style: normal;
@@ -41,7 +61,7 @@ export default function Card({edit = false}) {
                 margin-top: 9px;
                 margin-bottom: 0;
             `}
-            onClick={() => setIsEdit(true)}>Old fashioned recipe for preventing allergies and chemical sensitivities</p>;
+            onClick={() => setIsEdit(true)}>{deltaValue}</p>;
         }
     }
 
@@ -54,9 +74,7 @@ export default function Card({edit = false}) {
             cursor: pointer;
         `}>
             <div className='d-flex gap-2'>
-                <Tag color='yellow'/>
-                <Tag color='blue'/>
-                <Tag color='green'/>
+                {tags ? tags.map((el, i) => <Tag key={i} color={el}/>) : null}
             </div>
             {switchTitle()}
         </div>
@@ -64,5 +82,11 @@ export default function Card({edit = false}) {
 }
 
 Card.propTypes = {
-    edit: PropTypes.bool
+    id: PropTypes.number,
+    parent: PropTypes.number,
+    tags: PropTypes.arrayOf(PropTypes.oneOf(['yellow', 'blue', 'red', 'purple', 'green'])),
+    title: PropTypes.string,
+    setCardTitle: PropTypes.func
 }
+
+export default connect(() => ({}), {setCardTitle})(Card);
