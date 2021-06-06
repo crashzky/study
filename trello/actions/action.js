@@ -3,5 +3,7 @@ const setCardTitle = (parent, id, title) => ({type: 'SET_CARD_TITLE', payload: {
 const createCard = parent => ({type: 'CREATE_CARD', payload: {parent}});
 const createColumn = () => ({type: 'CREATE_COLUMN', payload: {}});
 const removeColumn = id => ({type: 'REMOVE_COLUMN', payload: {id}});
+const setActive = (column, card) => ({type: 'SET_ACTIVE', payload: {column, card}});
+const setActiveNull = () => ({type: 'SET_ACTIVE_NULL'});
 
-export {setColumnName, setCardTitle, createCard, createColumn, removeColumn};
+export {setColumnName, setCardTitle, createCard, createColumn, removeColumn, setActive, setActiveNull};

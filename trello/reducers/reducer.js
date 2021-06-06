@@ -1,4 +1,5 @@
 const initialState = {
+    openCard: null,
     columns: [
         {
             name: 'Design',
@@ -84,6 +85,19 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 columns: cols5
+            }
+        case 'SET_ACTIVE':
+            return {
+                ...state,
+                openCard: {
+                    column: action.payload.column,
+                    card: action.payload.card
+                }
+            }
+        case 'SET_ACTIVE_NULL':
+            return {
+                ...state,
+                openCard: null
             }
         default:
             return state;

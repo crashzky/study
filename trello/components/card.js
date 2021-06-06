@@ -3,9 +3,9 @@ import Tag from '../components/tag';
 import {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {setCardTitle} from '../actions/action';
+import {setCardTitle, setActive, setActiveNull} from '../actions/action';
 
-const Card = ({id, parent, tags, title, setCardTitle}) => {
+const Card = ({id, parent, tags, title, setCardTitle, openCard, setActiveNull, setActive}) => {
     const [isEdit, setIsEdit] = useState(false);
     const inputRef = useRef();
 
@@ -64,20 +64,27 @@ const Card = ({id, parent, tags, title, setCardTitle}) => {
             onClick={() => setIsEdit(true)}>{deltaValue}</p>;
         }
     }
-
     return (
-        <div className={css`
+        <button className={css`
+            z-index: ${openCard && openCard.column === parent && openCard.card === id ? '3' : '1'};
             width: 362px;
             background: #F4F4F4;
             border-radius: 10px;
             padding: 20px;
-            cursor: pointer;
-        `}>
+            border: none;
+            outline: none;
+        `} onContextMenu ={e => {
+            e.preventDefault();
+            setActive(parent, id);
+        }} onKeyUp={e => {
+            if(e.code === 'Escape')
+                setActiveNull();
+        }}>
             <div className='d-flex gap-2'>
                 {tags ? tags.map((el, i) => <Tag key={i} color={el}/>) : null}
             </div>
             {switchTitle()}
-        </div>
+        </button>
     );
 }
 
@@ -86,7 +93,14 @@ Card.propTypes = {
     parent: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.oneOf(['yellow', 'blue', 'red', 'purple', 'green'])),
     title: PropTypes.string,
-    setCardTitle: PropTypes.func
+    setCardTitle: PropTypes.func,
+    setActive: PropTypes.func,
+    setActiveNull: PropTypes.func,
+    openCard: PropTypes.object
 }
 
-export default connect(() => ({}), {setCardTitle})(Card);
+const mapStateToProps = state => ({
+    openCard: state.openCard
+});
+
+export default connect(mapStateToProps, {setCardTitle, setActive, setActiveNull})(Card);
