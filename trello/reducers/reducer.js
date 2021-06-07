@@ -1,42 +1,7 @@
 const initialState = {
     request: '',
     openCard: null,
-    columns: [
-        {
-            name: 'Design',
-            childrens: [
-                {
-                    title: 'Old fashioned recipe for preventing allergies and chemical sensitivities',
-                    tags: ['yellow']
-                },
-                {
-                    title: 'Home business advertising ideas',
-                    tags: ['blue', 'red', 'purple', 'green']
-                },
-                {
-                    title: 'Cosmetic surgery abroad making the right choice',
-                    tags: ['blue']
-                }
-            ]
-        },
-        {
-            name: 'Prototip',
-            childrens: [
-                {
-                    title: 'Home business advertising ideas',
-                    tags: ['blue', 'red', 'purple']
-                },
-                {
-                    title: 'Unmatched toner cartridge quality 20 less than oem price',
-                    tags: ['blue', 'yellow']
-                },
-                {
-                    title: 'How to look up',
-                    tags: ['green']
-                }
-            ]
-        }
-    ]
+    columns: []
 }
 
 export default function reducer(state = initialState, action) {
