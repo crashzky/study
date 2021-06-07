@@ -8,7 +8,7 @@ import {useState, useRef, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {setColumnName, removeColumn} from '../actions/action';
 
-const Column = ({id, columns, setColumnName, removeColumn}) => {
+const Column = ({id, columns, setColumnName, removeColumn, request}) => {
     const Title = styled.div`
         width: 362px;
         height: 50px;
@@ -80,7 +80,10 @@ const Column = ({id, columns, setColumnName, removeColumn}) => {
                 </Button>
             </Title>
             <div className='mt-3 d-grid gap-3'>
-                {childrens.map((el, i) => <Card key={i} parent={id} id={i} title={el.title} tags={el.tags}/>)}
+                {childrens.map((el, i) => {
+                    if(el.title.match(request) || el.title.match('Write smth...'))
+                        return <Card key={i} parent={id} id={i} title={el.title} tags={el.tags}/>;
+                })}
                 <New type='card' parent={id}/>
             </div>
         </div>
@@ -91,11 +94,13 @@ Column.propTypes = {
     id: PropTypes.number,
     columns: PropTypes.arrayOf(PropTypes.object),
     setColumnName: PropTypes.func,
-    removeColumn: PropTypes.func
+    removeColumn: PropTypes.func,
+    request: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-    columns: state.columns
+    columns: state.columns,
+    request: state.request
 });
 
 export default connect(mapStateToProps, {setColumnName, removeColumn})(Column);

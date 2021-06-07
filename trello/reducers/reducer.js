@@ -1,4 +1,5 @@
 const initialState = {
+    request: '',
     openCard: null,
     columns: [
         {
@@ -67,6 +68,14 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 columns: cols3
             };
+        case 'REMOVE_CARD':
+            let cols6 = Array.from(state.columns);
+            cols6[action.payload.column].childrens.splice(action.payload.card, 1)
+
+            return {
+                ...state,
+                columns: cols6
+            }
         case 'CREATE_COLUMN':
             let cols4 = Array.from(state.columns);
             cols4.push({
@@ -98,6 +107,18 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 openCard: null
+            }
+        case 'SET_TAGS':
+            let cols7 = Array.from(state.columns);
+            cols7[action.payload.column].childrens[action.payload.card].tags = action.payload.tags;
+            return {
+                ...state,
+                columns: cols7
+            }
+        case 'UPDATE_REQUEST':
+            return {
+                ...state,
+                request: action.payload
             }
         default:
             return state;

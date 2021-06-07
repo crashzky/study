@@ -21,7 +21,10 @@ const Main = ({columns, openCard}) => {
                     height: 100vh;
                     opacity: .6;
                     display: ${openCard ? 'block' : 'none'};
-                `}></div>
+                `}  onKeyUp={e => {
+                        if(e.code === 'Escape')
+                            setActiveNull();
+                }}></div>
                 <Header/>
                 <div className='ms-4'> 
                     <p className={css`

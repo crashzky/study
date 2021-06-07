@@ -40,6 +40,7 @@ const New = ({type, parent, createCard, createColumn}) => {
                     font-style: normal;
                     font-weight: 400;
                     font-size: 16px;
+                    width: 362px;
                     line-height: 24px;
                 `}>{switchTitle()}</p>
         </button>

@@ -3,8 +3,11 @@ import {
     Row,
     Col
 } from 'reactstrap';
+import {updateRequest} from '../actions/action';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function Search() {
+const Search = ({request, updateRequest}) => {
     return (
         <Row className={css`
             width: 512px;
@@ -19,7 +22,10 @@ export default function Search() {
                     outline: none;
                     border: none;
                     background: transparent;
-                `}/>
+                `}
+                placeholder='Search'
+                defaultValue={request}
+                onChange={e => updateRequest(e.target.value)}/>
             </Col>
             <Col className={css`
                 padding-top: 1px;
@@ -28,4 +34,15 @@ export default function Search() {
             </Col>
         </Row>
     );
-}
+};
+
+Search.propTypes = {
+    updateRequest: PropTypes.func,
+    request: PropTypes.string
+};
+
+const mapStateToProps = state => ({
+    request: state.request
+});
+
+export default connect(mapStateToProps, {updateRequest})(Search);
