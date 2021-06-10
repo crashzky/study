@@ -15,11 +15,13 @@ import {
 import {useState, useEffect} from 'react';
 
 const Main = ({columns, openCard}) => {
-    const [openModal, setOpenModal] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
+    const [coefficent, setCoefficent] = useState(1);
 
     useEffect(() => {
-        //setOpenModal(!window.sessionStorage.getItem('first'));
+        setOpenModal(!window.sessionStorage.getItem('first'));
         window.sessionStorage.setItem('first', 'yes');
+        setCoefficent(window.innerWidth < 900 ? window.innerWidth / 900 : 1);
     }, []);
 
     return (
@@ -41,7 +43,7 @@ const Main = ({columns, openCard}) => {
                             setActiveNull();
                 }}></div>
                 <Header/>
-                <div className='ms-4'> 
+                <div className='px-4 w-100'> 
                     <p className={css`
                         font-style: normal;
                         font-weight: 500;
@@ -57,30 +59,30 @@ const Main = ({columns, openCard}) => {
                         display: ${columns.length === 0 ? 'block' : 'none'};
                         font-style: normal;
                         font-weight: 700;
-                        font-size: 120px;
+                        font-size: ${120 * coefficent}px;
                         text-align: center;
                         margin-bottom: 0;
+                        margin-top: 30px;
                     `}>Welcome to <span className={css`
                         color: #4339F2;
                     `}>trello</span>!</h2>
                     <p className={css`
                         display: ${columns.length === 0 ? 'block' : 'none'};
                         font-weight: 500;
-                        font-size: 64px;
-                        line-height: 96px;
+                        font-size: ${64 * coefficent}px;
+                        line-height:  ${96 * coefficent}px;
                         text-align: center;
                     `}>create your first column</p>
 
                 </div>
             </div>
-            <Modal md isOpen={openModal} toggle={setOpenModal}>
+            <Modal size='xl' isOpen={openModal} toggle={setOpenModal}>
                 <ModalHeader>Quic start</ModalHeader>
-                <ModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <ModalBody className='d-flex justify-content-center'>
+                    <img src='/demo.gif' alt='Demo'/>
                 </ModalBody>
                 <ModalFooter>
-                <Button color="primary">Do Something</Button>{' '}
-                <Button color="secondary" onClick={() => setOpenModal(false)}>Cancel</Button>
+                <Button color="primary" onClick={() => setOpenModal(false)}>Ok!</Button>
                 </ModalFooter>
             </Modal>
         </>
