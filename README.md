@@ -7,6 +7,7 @@
  1. Notes - simple app for write notes.
  2. Card form - site with very beautiful and smart form for paycard.
  3. Trello - clone of famous [trello.com](https://trello.com/)
+ 4. Dodo - clone of mobile app dodo pizza.
 
 ## Contributing
 You can use my code however you want.
