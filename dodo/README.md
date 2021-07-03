@@ -2,10 +2,10 @@
 
 It's my first flutter project - clone of mobile app dodo pizza.
 
-![](demo/1.jpg)
-![](demo/2.jpg)
-![](demo/3.jpg)
-![](demo/4.jpg)
+![](demo/1.jpg =250x)
+![](demo/2.jpg =250x)
+![](demo/3.jpg =250x)
+![](demo/4.jpg =250x)
 
 ## Run the app
 
