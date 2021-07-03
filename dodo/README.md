@@ -13,12 +13,12 @@ It's my first flutter project - clone of mobile app dodo pizza.
 
 ### Android studio
 
-![](demo/android.png)
+<img src="demo/android.png" width="500">
 
 ### Visual Studio code
 
 1. Select a device
-![](demo/code.png)
+<img src="demo/code.png" width="500">
 
 2. Invoke Run > Start Debugging or press F5
 
