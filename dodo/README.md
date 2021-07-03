@@ -3,10 +3,10 @@
 It's my first flutter project - clone of mobile app dodo pizza.
 
 <p float="left">
-  <img src="demo/1.jpg" width="200">
-  <img src="demo/2.jpg" width="200">
-  <img src="demo/3.jpg" width="200">
-  <img src="demo/4.jpg" width="200">
+  <img src="demo/1.jpg" width="220">
+  <img src="demo/2.jpg" width="220">
+  <img src="demo/3.jpg" width="220">
+  <img src="demo/4.jpg" width="220">
 </p>
 
 ## Run the app
