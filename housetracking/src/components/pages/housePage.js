@@ -3,6 +3,7 @@ import {css} from '@emotion/css';
 
 import ProgressBar from '../progressBar';
 import AsideBar from '../asideBar';
+import TopNavigation from '../topNavigation';
 
 const HousePage = () => {
     return (
@@ -28,6 +29,7 @@ const HousePage = () => {
                 web-share
                 src="https://sketchfab.com/models/f5da7f95dfef41f49fa99f9d8acdca33/embed"></iframe>
 
+            <TopNavigation/>
             <AsideBar/>
             <ProgressBar/>
         </main>
