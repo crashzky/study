@@ -1,8 +1,11 @@
 import React from 'react';
 import {css} from '@emotion/css';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {setActiveState} from '../../actions/actions';
 
-const ProgressBar = () => {
+const ProgressBar = ({setActiveState}) => {
     const stageMixin = `
         font-weight: 500;
         font-size: 20px;
@@ -36,17 +39,21 @@ const ProgressBar = () => {
             overflow-x: scroll;
             background: rgba(255, 255, 255, 0.7);
         `}>
-            <GreenStageP>Подготовка</GreenStageP>
-            <GreenStageP>Основание и фундамент</GreenStageP>
-            <GreenStageP>Возведение стен</GreenStageP>
-            <GreenStageP>Кровля и наружные стены</GreenStageP>
-            <StageP>Инженерные сети</StageP>
-            <StageP>Внутренняя отделка</StageP>
-            <StageP className={css`
+            <GreenStageP onClick={() => setActiveState(0)}>Подготовка</GreenStageP>
+            <GreenStageP onClick={() => setActiveState(1)}>Основание и фундамент</GreenStageP>
+            <GreenStageP onClick={() => setActiveState(2)}>Возведение стен</GreenStageP>
+            <GreenStageP onClick={() => setActiveState(3)}>Кровля и наружные стены</GreenStageP>
+            <StageP onClick={() => setActiveState(4)}>Инженерные сети</StageP>
+            <StageP onClick={() => setActiveState(5)}>Внутренняя отделка</StageP>
+            <StageP onClick={() => setActiveState(6)} className={css`
                 border-right: none !important;
             `}>Благоустройство территории</StageP>
         </div>
     );
 };
 
-export default ProgressBar;
+ProgressBar.propTypes = {
+    setActiveState: PropTypes.func
+};
+
+export default connect(() => ({}), {setActiveState})(ProgressBar);

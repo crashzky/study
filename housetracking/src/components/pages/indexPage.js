@@ -18,7 +18,7 @@ const IndexPage = () => {
     return (
         <main className={css`
             position: relative;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
 
             &:before {
@@ -34,7 +34,7 @@ const IndexPage = () => {
             <div className='h-100'>
                 <h1 className={css`
                     position: absolute;
-                    width: 100vw;
+                    width: 100%;
                     top: calc((100vh - 200px) / 2);
                     font-weight: 800;
                     font-size: 120px;
