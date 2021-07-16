@@ -13,6 +13,7 @@ import './style.css';
 import IndexPage from '../pages/indexPage';
 import HousePage from '../pages/housePage';
 import CamPage from '../pages/camPage';
+import NewsPage from '../pages/newsPage';
 
 const App = () => {
     const store = createStore(reducer);
@@ -21,6 +22,7 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Switch>
+                    <Route path='/houses/:id/news' exact component={NewsPage}/>
                     <Route path='/houses/:id/cams' exact component={CamPage}/>
                     <Route path='/houses/:id' exact component={HousePage}/>
                     <Route path='/' exact component={IndexPage}/>

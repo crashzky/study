@@ -13,16 +13,90 @@ import House6 from '../../assets/houses/house_6.png';
 import House7 from '../../assets/houses/house_7.png';
 import House8 from '../../assets/houses/house_8.png';
 
+import News1 from '../../assets/news/news_1.png';
+import News2 from '../../assets/news/news_2.png';
+import News3 from '../../assets/news/news_3.png';
+import News4 from '../../assets/news/news_4.png';
+import News5 from '../../assets/news/news_5.png';
+import News6 from '../../assets/news/news_6.png';
+import News7 from '../../assets/news/news_7.png';
+import News8 from '../../assets/news/news_8.png';
+
 const Card = ({type, cardId}) => {
     
     const getCardData = () => {
         switch(type) {
             case 'house':
                 return getHouseInfo();
+            case 'news':
+                return getNewsInfo();
             default:
                 return null;
         }
     }
+
+    const getNewsInfo = () => {
+        switch(cardId) {
+            case 0:
+                return {
+                    title: 'Встреча жителей 3 и 4 домов Clever Park',
+                    addres: '07.07.2021',
+                    date: '',
+                    image: News1
+                };
+            case 1:
+                return {
+                    title: 'Старт продаж кладовых 3 и 4 домов',
+                    addres: '18.06.2021',
+                    date: '',
+                    image: News2
+                };
+            case 2:
+                return {
+                    title: 'Встреча жителей 3 и 4 домов Clever Park',
+                    addres: '07.07.2021',
+                    date: '',
+                    image: News3
+                };
+            case 3:
+                return {
+                    title: 'Режим работы офиса продаж в праздники',
+                    addres: '30.04.2021',
+                    date: '',
+                    image: News4
+                };
+            case 4:
+                return {
+                    title: 'Выгодные условия при поупке готовых квартир',
+                    addres: '26.01.2021',
+                    date: '',
+                    image: News5
+                };
+            case 5:
+                return {
+                    title: 'Кладовые с рассрочкой на 11 месяцев',
+                    addres: '18.11.2020',
+                    date: '',
+                    image: News6
+                };
+            case 6:
+                return {
+                    title: 'Clever Park - лучший жилой квартал',
+                    addres: '27.08.2020',
+                    date: '',
+                    image: News7
+                };
+            case 7:
+                return {
+                    title: 'Режим работы с 01/01/2020',
+                    addres: '27.03.2020',
+                    date: '',
+                    image: News8
+                };
+            default:
+                return null;
+        }
+    };
 
     const getHouseInfo = () => {
         switch(cardId) {
@@ -89,20 +163,20 @@ const Card = ({type, cardId}) => {
 
     const GreyP = styled.p`
         font-weight: 500;
-        font-size: 22px;
+        font-size: 20px;
         color: #717784;
         margin: 0;
     `;
 
     return (
-        <Link to={`/houses/${cardId}`} className={css`
+        <Link to={`/houses/${cardId}/${type === 'news' ? 'news' : ''}`} className={css`
             width: 300px;
-            cursor: pointer;
+            ${type === 'houses' ? ' cursor: pointer;' : ''}
             text-decoration: none;
 
             transition: transform, .2s;
             &:hover {
-                transform: scale(1.12);
+               ${type === 'houses' ? ' transform: scale(1.12);' : ''}
             }
         `}>
             <img src={getCardData().image} alt='Карточка' className={css`
@@ -111,7 +185,7 @@ const Card = ({type, cardId}) => {
             `}/>
             <p className={css`
                 font-weight: 600;
-                font-size: 25px;
+                font-size: 22px;
                 margin: 0 2px 0 0;
                 color: black;
             `}>{getCardData().title}</p>
