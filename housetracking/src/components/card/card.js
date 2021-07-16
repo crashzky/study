@@ -171,12 +171,12 @@ const Card = ({type, cardId}) => {
     return (
         <Link to={`/houses/${cardId}/${type === 'news' ? 'news' : ''}`} className={css`
             width: 300px;
-            ${type === 'houses' ? ' cursor: pointer;' : ''}
+            ${type === 'house' ? ' cursor: pointer;' : ''}
             text-decoration: none;
 
             transition: transform, .2s;
             &:hover {
-               ${type === 'houses' ? ' transform: scale(1.12);' : ''}
+               ${type === 'house' ? 'transform: scale(1.12);' : ''}
             }
         `}>
             <img src={getCardData().image} alt='Карточка' className={css`
