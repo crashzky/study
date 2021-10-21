@@ -1,6 +1,11 @@
+/*eslint-disable*/
 module.exports = {
 	root: true,
-	extends: ['react-app', 'react-app/jest'],
+	parser: '@typescript-eslint/parser',
+	extends: ['next/core-web-vitals'],
+	plugins: [
+		'@typescript-eslint'
+	],
 	rules: {
 		//prettier
 		'prettier/prettier': 0, // disable that monster
