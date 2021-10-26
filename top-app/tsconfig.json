@@ -6,10 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
-	"strictPropertyInitialization": false,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
