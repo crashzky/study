@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }: Props) {
+const MyApp = ({ Component, pageProps }: Props) => {
 	return (
 		<div>
 			<Head>
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: Props) {
 				rel='stylesheet' />
 		</div>
 	);
-}
+};
 
 interface Props {
 	Component: any;
