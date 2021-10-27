@@ -2,16 +2,13 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-
 	color: var(--black);
 	background-color: #E5E5E5;
-
 	font-family: var(--font-family);
 }
 
 a {
 	text-decoration: none;
-
 	color: inherit;
 }
 
@@ -21,8 +18,10 @@ a {
 
 :root {
 	--black: #3B434E;
+	--light-gray: #EBEBEB;
 	--white: white;
 	--primary: #7653FC;
+	--primary-hover: rgb(70 23 255);
 	--danger: #FC836D;
 	--success: #1DC37E;
 	--success-light: #C8F8E4;
