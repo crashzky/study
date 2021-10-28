@@ -1,4 +1,4 @@
-import { Button, Htag, Ptag } from '../components';
+import { Button, Htag, Ptag, Tag } from '../components';
 
 const Home = () => {
 	return (
@@ -17,6 +17,12 @@ const Home = () => {
 				которые позволят эффективно взаимодействовать в команде с менеджерами, разработчиками и маркетологами.
 				Выпускники факультета могут успешно конкурировать с веб-дизайнерами уровня middle.
 			</Ptag>
+			<Tag color='green'>
+				-10 000 ₽ 
+			</Tag>
+			<Tag color='primary-ghost' href='/404'>
+				Работа в Photoshop
+			</Tag>
 		</>
 	);
 };

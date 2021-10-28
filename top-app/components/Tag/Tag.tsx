@@ -2,7 +2,7 @@ import Props from './Tag.props';
 import styles from './Tag.module.scss';
 import cn from 'classnames';
 
-export const Tag = ({ children, color, size, className, ...props }: Props): JSX.Element => {
+export const Tag = ({ children, color, href, className, ...props }: Props): JSX.Element => {
 	return (
 		<span
 			className={cn(
@@ -12,14 +12,22 @@ export const Tag = ({ children, color, size, className, ...props }: Props): JSX.
 					[styles.green]: color === 'green',
 					[styles.red]: color === 'red',
 					[styles.ghost]: color === 'ghost',
-					[styles.primary_ghost]: color === 'primary-ghost',
-					[styles.big]: size === 'big',
-					[styles.medium]: size === 'medium',
+					[styles['primary-ghost']]: color === 'primary-ghost',
 				}
 			)}
 			{...props}
 		>
-			{children}
+			{
+				href ? (
+					<a href={href}>
+						{children}
+					</a>
+				) : (
+					<p className={styles.p}>
+						{children}
+					</p>
+				)
+			}
 		</span>
 	);
 };

@@ -1,0 +1,35 @@
+.span {
+	display: inline-block;
+	box-sizing: border-box;
+	border-radius: 20px;
+}
+
+.green {
+	padding: 5px 8px;
+	color: var(--success);
+	background: #C8F8E4;
+}
+
+.red {
+	padding: 3px 8px;
+	color: white;
+	background: #DE0000;
+}
+
+.ghost {
+	padding: 5px 12px;
+	color: var(--black);
+	border: 1px solid var(--light-gray);
+	background: none;
+}
+
+.primary-ghost {
+	padding: 3px 8px;
+	color: var(--primary);
+	border: 1px solid var(--primary);
+	background: none;
+}
+
+.p {
+	margin: 0;
+}
