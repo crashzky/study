@@ -3,20 +3,22 @@
 	box-sizing: border-box;
 	padding: 10px;
 	cursor: pointer;
-	text-align: center;
+	transition: all 0.2s;
 	border: none;
 	border-radius: 5px;
 	font-size: 14px;
 }
 
 .primary {
-	transition: all 0.2s;
 	color: var(--white);
-	border: 1px solid var(--white);
 	background: var(--primary);
 
 	&:hover {
 		background: var(--primary-hover);
+	}
+
+	svg {
+		fill: var(--white);
 	}
 }
 
@@ -27,7 +29,22 @@
 
 	&:hover {
 		color: var(--white);
-		border: none;
+		border: 1px solid transparent;
 		background: var(--primary);
+
+		svg {
+			fill: var(--white);
+		}
 	}
+}
+
+.arrow {
+	display: inline-block;
+	height: 10px;
+	margin-left: 11px;
+}
+
+.down {
+	transition: rotate(90deg);
+	transition: all 0.2s;
 }

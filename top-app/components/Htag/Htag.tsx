@@ -1,23 +1,27 @@
 import Props from './Htag.props';
 import styles from './Htag.module.scss';
+import cn from 'classnames';
 
-export const Htag = ({ tag, children }: Props): JSX.Element => {
+export const Htag = ({ tag, children, className, ...props }: Props): JSX.Element => {
 	switch(tag) {
 		case 'h1':
 			return (
-				<h1 className={styles.h1}>
+				<h1
+					className={cn(styles.h1, className)}
+					{...props}
+				>
 					{children}
 				</h1>
 			);
 		case 'h2':
 			return (
-				<h2 className={styles.h2}>
+				<h2 className={cn(styles.h2, className)}>
 					{children}
 				</h2>
 			);
 		case 'h3':
 			return (
-				<h3 className={styles.h3}>
+				<h3 className={cn(styles.h3, className)}>
 					{children}
 				</h3>
 			);

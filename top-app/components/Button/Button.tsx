@@ -1,15 +1,30 @@
-import styles from './Button.module.scss';
 import Props from './Button.props';
+import styles from './Button.module.scss';
 import cn from 'classnames';
+import ArrowIcon from './arrow.svg';
 
-export const Button = ({ children, appearance }: Props): JSX.Element => {
+export const Button = ({ children, appearance, arrow = 'none', className, ...props }: Props) => {
 	return (
-		<button className={cn(styles.button, {
-			[styles.primary]: appearance === 'primary',
-			[styles.ghost]: appearance === 'ghost',
-		})}
+		<button
+			className={cn(
+				styles.button,
+				className,
+				{
+					[styles.primary]: appearance === 'primary',
+					[styles.ghost]: appearance === 'ghost',
+				}
+			)}
+			{...props}
 		>
 			{children}
+			{arrow !== 'none' && (
+				<span className={cn(styles.arrow, {
+					[styles.down]: arrow === 'down',
+				})}
+				>
+					<ArrowIcon />
+				</span>
+			)}
 		</button>
 	);
 };
