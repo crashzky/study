@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
-import { Button, Htag, Ptag, Tag } from '../components';
+import { useState } from 'react';
+import { Button, Htag, Ptag, Tag, Rating } from '../components';
 
-const Home = () => {
+const Home = (): JSX.Element => {
 	const [count, setCount] = useState(0);
-	
-	useEffect(() => {
-		console.log('mount');
-		return function() {
-			console.log('unmount');
-		};
-	});
+	const [rating, setRating] = useState([0, 0, 0, 0, 0]);
+
+	const setActiveStar = (newValue: number) => {
+		let _newValue = [];
+
+		for(let i = 0; i < 5; i++) {
+			if(i <= newValue)
+				_newValue.push(1);
+			else
+				_newValue.push(0);
+		}
+		
+		setRating(_newValue);
+	};
 
 	return (
 		<>
@@ -39,6 +46,9 @@ const Home = () => {
 			<Tag color='primary-ghost' href='/404'>
 				Работа в Photoshop
 			</Tag>
+			<Rating
+				activedStars={rating}
+				setActivedStar={setActiveStar} />
 		</>
 	);
 };

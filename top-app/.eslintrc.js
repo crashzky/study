@@ -74,7 +74,7 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 1,
 
 		'@typescript-eslint/triple-slash-reference': 0,
-		'@typescript-eslint/explicit-module-boundary-types': 0,
+		'@typescript-eslint/explicit-module-boundary-types': 1,
 		'import/first': 0,
 	}
 }
