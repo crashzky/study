@@ -1,8 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Button, Htag, Ptag, Tag } from '../components';
 
 const Home = () => {
+	const [count, setCount] = useState(0);
+	
+	useEffect(() => {
+		console.log('mount');
+		return function() {
+			console.log('unmount');
+		};
+	});
+
 	return (
 		<>
+			<Htag tag='h2'>
+				{count}
+			</Htag>
 			<Htag tag='h1'>
 				Курсы по Photoshop
 			</Htag>
@@ -11,6 +24,9 @@ const Home = () => {
 			</Button>
 			<Button arrow='down' appearance='ghost'>
 				Читать отзывы
+			</Button>
+			<Button appearance='primary' onClick={() => setCount((count) => count + 1)}>
+				Увеличить
 			</Button>
 			<Ptag size='medium'>
 				Студенты освоят не только hard skills, необходимые для работы веб-дизайнером, но и soft skills — навыки,
