@@ -23,7 +23,7 @@ export const Rating = ({ activedStars = [0, 0, 0, 0, 0], setActivedStar, ...prop
 					<StarIcon
 						className={cn(
 							{
-								[styles.active]: i === 1 || hoveredStars && num <= hoveredStars,
+								[styles.active]: (i === 1 && hoveredStars === -1) || (hoveredStars !== -1 && num <= hoveredStars),
 							}
 						)} />
 				</button>
