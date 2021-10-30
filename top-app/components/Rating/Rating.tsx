@@ -21,6 +21,7 @@ export const Rating = ({ activedStars = [0, 0, 0, 0, 0], setActivedStar, ...prop
 					onMouseLeave={() => setHoveredStars(num - 1)}
 				>
 					<StarIcon
+						tabIndex={0}
 						className={cn(
 							{
 								[styles.active]: (i === 1 && hoveredStars === -1) || (hoveredStars !== -1 && num <= hoveredStars),
