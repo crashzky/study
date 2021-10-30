@@ -1,10 +1,14 @@
 .button {
 	display: inline-block;
-	margin-right: 5px;
+	padding-right: 5px;
 	cursor: pointer;
 	border: none;
 	outline: none;
 	background: none;
+}
+
+.star {
+	outline: var(--primary);
 }
 
 .active {
