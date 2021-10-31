@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Htag, Ptag, Tag, Rating } from '../components';
+import Layout from '../layout/Layout';
 
 const Home = (): JSX.Element => {
 	const [count, setCount] = useState(0);
@@ -19,7 +20,7 @@ const Home = (): JSX.Element => {
 	};
 
 	return (
-		<>
+		<Layout>
 			<Htag tag='h2'>
 				{count}
 			</Htag>
@@ -49,7 +50,7 @@ const Home = (): JSX.Element => {
 			<Rating
 				activedStars={rating}
 				setActivedStar={setActiveStar} />
-		</>
+		</Layout>
 	);
 };
 
