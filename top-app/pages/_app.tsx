@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import '../styles/globals.scss';
 
-const MyApp = ({ Component, pageProps }: Props) => {
+const MyApp = ({ Component, pageProps }: Props): JSX.Element => {
 	return (
 		<div>
 			<Head>

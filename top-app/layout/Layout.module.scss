@@ -1,0 +1,38 @@
+$max-mobile-width: 1242px;
+
+.container {
+	display: grid;
+	min-height: 100vh;
+	grid-template:
+		"sidebar body"
+		"footer footer" 72px;
+
+	@media screen and (max-width: $max-mobile-width) {
+		grid-template:
+			"header" 76px
+			"body"
+			"footer" 72px;
+	}
+}
+
+.sidebar {
+	grid-area: sidebar;
+}
+
+.body {
+	grid-auto-flow: body;
+	justify-content: center;
+}
+
+.footer {
+	grid-area: footer;
+}
+
+.header {
+	display: none;
+	grid-area: head;
+
+	@media screen and (max-width: $max-mobile-width) {
+		display: block;
+	}
+}
