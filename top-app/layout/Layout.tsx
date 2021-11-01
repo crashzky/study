@@ -1,14 +1,21 @@
 import Props from './Layout.props';
 import styles from './Layout.module.scss';
+import cn from 'classnames';
 
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { FunctionComponent } from 'react';
 
-export const Layout = ({ children }: Props): JSX.Element => {
+export const Layout = ({ children, className, ...props }: Props): JSX.Element => {
 	return (
-		<div className={styles.container}>
+		<div
+			className={cn(
+				styles.container,
+				className
+			)}
+			{...props}
+		>
 			<Sidebar className={styles.sidebar} />
 			<Header className={styles.header} />
 			<div>

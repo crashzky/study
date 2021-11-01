@@ -3,16 +3,10 @@ $max-mobile-width: 1242px;
 .container {
 	display: grid;
 	min-height: 100vh;
+	gap: 35px;
 	grid-template:
 		"sidebar body"
 		"footer footer" 72px;
-
-	@media screen and (max-width: $max-mobile-width) {
-		grid-template:
-			"header" 76px
-			"body"
-			"footer" 72px;
-	}
 }
 
 .sidebar {
@@ -31,8 +25,4 @@ $max-mobile-width: 1242px;
 .header {
 	display: none;
 	grid-area: head;
-
-	@media screen and (max-width: $max-mobile-width) {
-		display: block;
-	}
 }

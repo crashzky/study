@@ -50,6 +50,9 @@ const Home = (): JSX.Element => {
 			<Rating
 				activedStars={rating}
 				setActivedStar={setActiveStar} />
+			<Ptag>
+				{process.env.NEXT_PUBLIC_NAME}
+			</Ptag>
 		</>
 	);
 };
