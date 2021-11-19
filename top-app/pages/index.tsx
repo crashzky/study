@@ -1,8 +1,11 @@
+import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { Button, Htag, Ptag, Tag, Rating } from '../components';
 import { withLayout } from '../layout/Layout';
+import { getValues } from '../shared/api/api';
+import ValueResponse from '../shared/types/value.type';
 
-const Home = (): JSX.Element => {
+const Home = ({ data }: Props): JSX.Element => {
 	const [count, setCount] = useState(0);
 	const [rating, setRating] = useState([0, 0, 0, 0, 0]);
 
@@ -53,8 +56,29 @@ const Home = (): JSX.Element => {
 			<Ptag>
 				{process.env.NEXT_PUBLIC_NAME}
 			</Ptag>
+			<ul>
+				{data.map((i, num) => (
+					<ol key={num}>
+						{i._id.secondCategory}
+					</ol>
+				))}
+			</ul>
 		</>
 	);
 };
 
 export default withLayout(Home);
+
+export const getStaticProps: GetStaticProps = async () => {
+	const data = await getValues(0);
+
+	return {
+		props: {
+			data,
+		},	
+	};
+};
+
+interface Props extends Record<string, unknown> {
+	data: ValueResponse[];
+};
